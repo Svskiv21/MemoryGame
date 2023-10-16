@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct CardView: View {
+    let content: String
     @State var isHiden = true
     var body: some View {
-        RoundedRectangle(cornerRadius: 12)
-            .fill(isHiden ? Color.blue : Color.white)
-            .border(Color.blue, width: 2)
-            .font(.largeTitle)
+        ZStack{
+            let base = RoundedRectangle(cornerRadius: 12)
+            Group{
+                base.fill(.white)
+                base.strokeBorder(lineWidth: 2)
+                Text(content).font(.largeTitle)
+            }
+            .opacity(isHiden ? 1 : 0)
+            
+            base.fill().opacity(isHiden ? 0 : 1)
+        }
+        .onTapGesture(perform: {
+            isFaceUp.toggle()
+        })
+        
+
     }
 }
 
