@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
 
-    var emoijs = [":)", ":(", ":|", ":*"]
+    var emojis = ["☺️", "🥰", "😘", "😡", "☺️", "🥰", "😘", "😡"]
 
-    @State cardNumber = 2
+    @State var cardNumber = 2
     var body: some View {
         VStack {
             ScrollView{
@@ -24,14 +24,15 @@ struct ContentView: View {
             }
         }
         .padding()
+        
     }
 
     var cards : some View {
         LazyVGrid(columns: 
         [GridItem(.adaptive(minimum: 120))]){
-            ForEach(0..<cardCount, id: \.self){
+            ForEach(0..<cardNumber, id: \.self){
                 index in CardView(content: emojis[index])
-                .aspectRatio(2/3,contentMode: .fit)
+//                .aspectRatio(2/3,contentMode: .fit)
             }
         }
         .foregroundColor(.blue)
@@ -43,10 +44,16 @@ struct ContentView: View {
                 cardNumber += by_offset
             }
         }
+        .frame(width: 100)
+        .border(Color.blue)
     }
 
-    var cardAdder = adjustCardNumber(2, "+")
-    var cardRemover = adjustCardNumber(-2, "+")
+    var cardAdder : some View {
+        adjustCardNumber(by_offset: 2, symbol: "+")
+    }
+    var cardRemover : some View {
+        adjustCardNumber(by_offset: -2, symbol: "-")
+    }
 }
 
 #Preview {
